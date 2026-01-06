@@ -1,62 +1,241 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import SectionHeading from './SectionHeading';
+import { FileText, Shield, Network, Zap, Code } from 'lucide-react';
 import './Documentation.css';
 
-const docs = [
-    {
-        question: "What hardware is required?",
-        answer: "You can use two smartphones: one online (your daily driver) and one offline (an old phone in airplane mode). No expensive hardware wallets needed."
-    },
-    {
-        question: "Is it open source?",
-        answer: "Yes, BlockOff is 100% open source. You can verify the code on GitHub and build it yourself for maximum trust."
-    },
-    {
-        question: "Which networks are supported?",
-        answer: "Currently, we support Ethereum Mainnet, Sepolia, and Goerli testnets. Layer-2 support (Arbitrum, Optimism) is coming soon."
-    }
-];
-
 const Documentation = () => {
-    const [activeIndex, setActiveIndex] = useState(null);
+    const [activeSection, setActiveSection] = useState('abstract');
 
-    const toggle = (index) => {
-        setActiveIndex(activeIndex === index ? null : index);
+    const scrollToSection = (id) => {
+        setActiveSection(id);
+        const element = document.getElementById(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     };
+
+    const tocItems = [
+        { id: 'abstract', label: 'Abstract', icon: <FileText size={16} /> },
+        { id: 'introduction', label: 'Introduction', icon: <Zap size={16} /> },
+        { id: 'architecture', label: 'System Architecture', icon: <Network size={16} /> },
+        { id: 'protocol', label: 'Protocol Specification', icon: <Code size={16} /> },
+        { id: 'security', label: 'Security', icon: <Shield size={16} /> },
+        { id: 'use-cases', label: 'Use Cases', icon: <FileText size={16} /> },
+    ];
 
     return (
         <section className="documentation" id="documentation">
-            <div className="features-header" style={{ marginBottom: '60px', paddingLeft: '0', border: 'none' }}>
-                <SectionHeading align="left">FAQ & Documentation</SectionHeading>
+            <div className="doc-header">
+                <SectionHeading align="left">Technical Documentation</SectionHeading>
+                <p className="doc-subtitle">BlockOff Whitepaper v1.0</p>
             </div>
 
-            <div className="doc-container">
-                {docs.map((doc, index) => (
-                    <div className="accordion-item" key={index}>
-                        <button className="accordion-header" onClick={() => toggle(index)}>
-                            {doc.question}
-                            <motion.span
-                                animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                                transition={{ duration: 0.3 }}
+            <div className="doc-layout">
+                {/* Table of Contents Sidebar */}
+                <aside className="doc-toc">
+                    <h3>Contents</h3>
+                    <nav>
+                        {tocItems.map((item) => (
+                            <button
+                                key={item.id}
+                                className={`toc-item ${activeSection === item.id ? 'active' : ''}`}
+                                onClick={() => scrollToSection(item.id)}
                             >
-                                ▼
-                            </motion.span>
-                        </button>
-                        <AnimatePresence>
-                            {activeIndex === index && (
-                                <motion.div
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: 'auto', opacity: 1 }}
-                                    exit={{ height: 0, opacity: 0 }}
-                                    className="accordion-content"
-                                >
-                                    <p>{doc.answer}</p>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                                {item.icon}
+                                <span>{item.label}</span>
+                            </button>
+                        ))}
+                    </nav>
+                </aside>
+
+                {/* Documentation Content */}
+                <div className="doc-content">
+                    {/* Abstract */}
+                    <motion.div id="abstract" className="doc-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                        <h2>Abstract</h2>
+                        <p>
+                            BlockOff introduces a revolutionary mesh networking protocol that enables blockchain transactions in offline environments
+                            through Bluetooth Low Energy (BLE) communication. By implementing a novel packet fragmentation and reassembly system,
+                            BlockOff allows cryptocurrency transactions to propagate through a peer-to-peer network until reaching an internet-connected
+                            node, which then broadcasts the transaction to the blockchain.
+                        </p>
+                    </motion.div>
+
+                    {/* Introduction */}
+                    <motion.div id="introduction" className="doc-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                        <h2>1. Introduction</h2>
+
+                        <h3>1.1 Problem Statement</h3>
+                        <p>
+                            Traditional blockchain transactions require constant internet connectivity, creating barriers in areas with poor network
+                            coverage or during network outages. This limitation prevents widespread adoption of cryptocurrency in developing regions
+                            and emergency scenarios where internet infrastructure is compromised.
+                        </p>
+
+                        <h3>1.2 Solution Overview</h3>
+                        <p>
+                            BlockOff solves this problem by creating a mesh network using Bluetooth Low Energy (BLE) technology, allowing devices
+                            to relay transaction data through multiple hops until reaching an internet-connected node.
+                        </p>
+
+                        <div className="highlight-box">
+                            <h4>Key Innovations</h4>
+                            <ul>
+                                <li><strong>BLE Mesh Protocol:</strong> Custom protocol for reliable data transmission over BLE GAP</li>
+                                <li><strong>Packet Fragmentation:</strong> Efficient chunking system for large transaction payloads</li>
+                                <li><strong>Multi-Chain Support:</strong> Compatible with EVM-based blockchains (Ethereum, Flow, Hedera)</li>
+                                <li><strong>EIP-3009 Integration:</strong> Gasless transactions using meta-transactions</li>
+                                <li><strong>Offline-First Architecture:</strong> Transactions queue and propagate without internet dependency</li>
+                            </ul>
+                        </div>
+                    </motion.div>
+
+                    {/* System Architecture */}
+                    <motion.div id="architecture" className="doc-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                        <h2>2. System Architecture</h2>
+
+                        <h3>2.1 Network Topology</h3>
+                        <p>BlockOff operates as a decentralized mesh network where each node can function as:</p>
+                        <ul>
+                            <li><strong>Originator:</strong> Creates and broadcasts new transactions</li>
+                            <li><strong>Relay:</strong> Forwards received packets to extend network reach</li>
+                            <li><strong>Gateway:</strong> Internet-connected node that submits transactions to blockchain</li>
+                        </ul>
+
+                        <div className="code-block">
+                            <pre>
+                                {`[Device A] --BLE--> [Device B] --BLE--> [Device C] --Internet--> [Blockchain]
+   (Sender)         (Relay)           (Gateway)`}
+                            </pre>
+                        </div>
+
+                        <h3>2.2 Core Components</h3>
+                        <div className="component-grid">
+                            <div className="component-card">
+                                <h4>BLE Context Manager</h4>
+                                <p>Manages Bluetooth operations, device scanning, and network topology</p>
+                            </div>
+                            <div className="component-card">
+                                <h4>Message State Manager</h4>
+                                <p>Tracks packet fragments, implements acknowledgment system</p>
+                            </div>
+                            <div className="component-card">
+                                <h4>Multi-Chain Engine</h4>
+                                <p>Supports multiple blockchains, handles signing and validation</p>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Protocol Specification */}
+                    <motion.div id="protocol" className="doc-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                        <h2>3. Protocol Specification</h2>
+
+                        <h3>3.1 Packet Structure</h3>
+                        <p>Each BlockOff packet consists of an 11-byte payload transmitted over BLE:</p>
+
+                        <div className="code-block">
+                            <pre>
+                                {`┌─────────────┬─────────────┬─────────────┬─────────────────────┐
+│     ID      │ Total Chunks│ Chunk Index │        Data         │
+│   1 byte    │   1 byte    │   1 byte    │      8 bytes        │
+│  (0-255)    │  (0-255)    │  (0-127)    │    (payload)        │
+└─────────────┴─────────────┴─────────────┴─────────────────────┘`}
+                            </pre>
+                        </div>
+
+                        <h3>3.2 Message Fragmentation</h3>
+                        <div className="code-block">
+                            <pre>
+                                {`const HEADER_SIZE = 3;
+const DATA_PER_CHUNK = 8;
+const MAX_PAYLOAD_SIZE = HEADER_SIZE + DATA_PER_CHUNK;
+
+// Fragment large messages into 8-byte chunks
+for (let i = 0; i < totalChunks; i++) {
+  const chunk = createChunk(messageId, totalChunks, i, data);
+  broadcastChunk(chunk);
+}`}
+                            </pre>
+                        </div>
+                    </motion.div>
+
+                    {/* Security */}
+                    <motion.div id="security" className="doc-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                        <h2>6. Security Architecture</h2>
+
+                        <h3>6.1 Cryptographic Security</h3>
+                        <p>All transactions use ECDSA signatures for authentication:</p>
+                        <ul>
+                            <li><strong>Private Key:</strong> 256-bit random number</li>
+                            <li><strong>Public Key:</strong> Derived using elliptic curve multiplication</li>
+                            <li><strong>Signature:</strong> Proves ownership without revealing private key</li>
+                        </ul>
+
+                        <h3>6.2 Replay Attack Prevention</h3>
+                        <div className="highlight-box">
+                            <ul>
+                                <li><strong>Unique Nonces:</strong> Each transaction uses cryptographically secure nonce</li>
+                                <li><strong>Nonce Tracking:</strong> Smart contract maintains used nonce registry</li>
+                                <li><strong>Time Bounds:</strong> Transactions have validity windows</li>
+                            </ul>
+                        </div>
+
+                        <h3>6.3 Privacy Considerations</h3>
+                        <ul>
+                            <li><strong>Non-Custodial:</strong> Users maintain full control of private keys</li>
+                            <li><strong>Local Storage:</strong> Keys encrypted and stored on device</li>
+                            <li><strong>Minimal Data:</strong> Only transaction data transmitted over mesh</li>
+                        </ul>
+                    </motion.div>
+
+                    {/* Use Cases */}
+                    <motion.div id="use-cases" className="doc-section" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                        <h2>9. Use Cases and Applications</h2>
+
+                        <div className="use-case-grid">
+                            <div className="use-case-card">
+                                <h3>Rural and Remote Areas</h3>
+                                <p>Enable cryptocurrency transactions in areas with poor internet connectivity</p>
+                                <ul>
+                                    <li>Agricultural payments</li>
+                                    <li>Cross-border remittances</li>
+                                    <li>Informal economy integration</li>
+                                </ul>
+                            </div>
+
+                            <div className="use-case-card">
+                                <h3>Emergency Scenarios</h3>
+                                <p>Critical transactions during internet infrastructure failures</p>
+                                <ul>
+                                    <li>Natural disaster response</li>
+                                    <li>Emergency payments</li>
+                                    <li>Humanitarian aid distribution</li>
+                                </ul>
+                            </div>
+
+                            <div className="use-case-card">
+                                <h3>Privacy-Focused Transactions</h3>
+                                <p>Reduced digital footprint and surveillance resistance</p>
+                                <ul>
+                                    <li>Anonymous payments</li>
+                                    <li>Censorship resistance</li>
+                                    <li>Decentralized routing</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Footer */}
+                    <div className="doc-footer">
+                        <p><strong>Document Version:</strong> 1.0</p>
+                        <p><strong>Last Updated:</strong> January 2026</p>
+                        <p className="doc-note">
+                            This whitepaper presents the technical architecture and specifications of the BlockOff protocol.
+                            For implementation details and code examples, visit our GitHub repository.
+                        </p>
                     </div>
-                ))}
+                </div>
             </div>
         </section>
     );
