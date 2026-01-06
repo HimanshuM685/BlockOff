@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import SectionHeading from './SectionHeading';
 import './About.css';
 
+import { Lock, Wifi } from 'lucide-react';
+
 const About = () => {
     return (
         <section className="about" id="about">
@@ -48,7 +50,7 @@ const About = () => {
                         animate={{ y: [0, -10, 0] }}
                         transition={{ duration: 4, repeat: Infinity }}
                     >
-                        🔒
+                        <Lock size={32} />
                     </motion.div>
 
                     <motion.div
@@ -57,7 +59,7 @@ const About = () => {
                         animate={{ y: [0, 10, 0] }}
                         transition={{ duration: 5, repeat: Infinity }}
                     >
-                        📶
+                        <Wifi size={32} />
                     </motion.div>
                 </motion.div>
             </div>
