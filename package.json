@@ -1,0 +1,26 @@
+{
+  "name": "blockoff",
+  "version": "1.0.0",
+  "description": "- Node.js (LTS version recommended) - `npm` or `yarn` - [Expo Go](https://expo.dev/go) app on your Android/iOS device (for development) - Android Studio / Xcode (for building native apps)",
+  "homepage": "https://github.com/HimanshuM685/BlockOff#readme",
+  "bugs": {
+    "url": "https://github.com/HimanshuM685/BlockOff/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HimanshuM685/BlockOff.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "hardhat": "^3.1.2"
+  }
+}

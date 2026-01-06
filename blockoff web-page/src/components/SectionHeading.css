@@ -1,0 +1,62 @@
+.section-heading-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.section-heading-wrapper.center {
+    align-items: center;
+}
+
+.section-heading-wrapper.left {
+    align-items: flex-start;
+}
+
+.section-heading-text {
+    font-size: 3.5rem;
+    font-weight: 700;
+
+    /* DOT FORMAT MAGIC */
+    color: transparent;
+    background-image: radial-gradient(circle, #F0F4F8 1.5px, transparent 1.5px);
+    background-size: 5px 5px;
+    /* Dense dots */
+    background-repeat: repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -2px;
+    /* Tighter letter spacing for density */
+    position: relative;
+    border: none;
+    text-transform: none;
+    background-color: transparent;
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+
+    /* Fallback for readability - faint drop shadow? No, keep it clean. 
+     Maybe a very subtle text stroke if contrast is low, but usually not needed with high density. */
+}
+
+/* 
+   We keep the underline dots as well? 
+   The prompt asked for "H1 and H2 text in dot formate", implying the text itself.
+   We can keep the underline for emphasize or remove it. 
+   Let's keep the underline as a secondary accent as the user liked it before.
+*/
+.section-heading-dots {
+    height: 4px;
+    margin-top: 12px;
+    background-image: radial-gradient(circle, rgba(0, 240, 255, 0.5) 1.5px, transparent 1.5px);
+    background-size: 10px 10px;
+    background-repeat: repeat-x;
+    background-position: left center;
+}
+
+@media (max-width: 768px) {
+    .section-heading-text {
+        font-size: 2.5rem;
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "main": "transferWithAuthorization.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx ts-node transferWithAuthorization.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.2.3",
+    "elliptic": "^6.6.1",
+    "ethers": "^6.15.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/elliptic": "^6.4.18"
+  }
+}

@@ -1,0 +1,74 @@
+:root {
+    /* Updated to User Requested Blue */
+    --bg-dark: rgb(0, 0, 225);
+    --bg-card: #0B0F1A;
+    /* Dark box background */
+
+    --accent-blue: #0f4c81;
+    --accent-cyan: rgb(0, 0, 255);
+    /* User requested blue for cyan */
+    --accent-green: #00ff9d;
+    --text-primary: #ffffff;
+    --text-secondary: #8b9bb4;
+    --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+
+    --nav-height: 80px;
+
+    /* Neo-Brutalism Variables */
+    --border-thick: 3px solid var(--accent-cyan);
+    --border-thin: 2px solid rgba(255, 255, 255, 0.2);
+
+    /* Subtle Accents */
+    --border-dashed: 2px dashed rgba(255, 255, 255, 0.25);
+    --border-dotted: 2px dotted rgba(255, 255, 255, 0.3);
+
+    --shadow-hard: 6px 6px 0px 0px var(--accent-blue);
+    --shadow-hard-white: 6px 6px 0px 0px #ffffff;
+    --shadow-hard-cyan: 6px 6px 0px 0px var(--accent-cyan);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-left: 1px solid #333;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-blue);
+    border: 2px solid var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan);
+}

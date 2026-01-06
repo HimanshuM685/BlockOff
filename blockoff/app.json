@@ -1,0 +1,67 @@
+{
+  "expo": {
+    "name": "BlockOff",
+    "slug": "blockoff",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "blockoffapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": false,
+    "android": {
+      "package": "com.blockoff.app",
+      "compileSdkVersion": 36,
+      "targetSdkVersion": 36,
+      "minSdkVersion": 30,
+      "jsEngine": "hermes",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "edgeToEdgeEnabled": false,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "./plugins/withBlePermissions",
+      "./plugins/withBleAdvertiserFix",
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan QR codes."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": false,
+      "reactCompiler": false
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "044f1cd9-4b57-4b27-a11d-5f9f165d5fcd"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.blockoff.app"
+    }
+  }
+}

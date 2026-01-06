@@ -1,0 +1,100 @@
+.about {
+    padding: 120px 20px;
+    background-color: var(--accent-green);
+    color: #000;
+    overflow: hidden;
+    border-bottom: 4px solid #000;
+}
+
+.about-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-container * {
+    color: #000;
+}
+
+/* Force SectionHeading text to be black-dot in this section for contrast */
+.about .section-heading-text {
+    color: transparent !important;
+    background-image: radial-gradient(circle, #000 1.5px, transparent 1.5px) !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+}
+
+/* Update underline dots too */
+.about .section-heading-dots {
+    background-image: radial-gradient(circle, #000 1.5px, transparent 1.5px) !important;
+}
+
+.about-text {
+    background: #fff;
+    padding: 40px;
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0 0 #000;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: #000;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.about-visual {
+    position: relative;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid #000;
+    background: var(--bg-dark);
+}
+
+.abstract-circle {
+    position: absolute;
+    border-radius: 0;
+    border: 4px solid var(--accent-cyan);
+}
+
+.c1 {
+    width: 300px;
+    height: 300px;
+    border-color: var(--accent-cyan);
+    transform: rotate(45deg);
+}
+
+.c2 {
+    width: 220px;
+    height: 220px;
+    border-style: solid;
+    border-color: #fff;
+    transform: rotate(15deg);
+}
+
+.c3 {
+    width: 100px;
+    height: 100px;
+    background: var(--accent-blue);
+    border: 2px solid #fff;
+}
+
+.floating-icon {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 5px 0 0 #000;
+    font-size: 32px;
+    z-index: 10;
+}
