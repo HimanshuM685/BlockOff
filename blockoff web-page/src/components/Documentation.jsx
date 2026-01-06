@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SectionHeading from './SectionHeading';
 import { FileText, Shield, Network, Zap, Code } from 'lucide-react';
@@ -7,8 +7,32 @@ import './Documentation.css';
 const Documentation = () => {
     const [activeSection, setActiveSection] = useState('abstract');
 
+    // Observer to detect which section is in view
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActiveSection(entry.target.id);
+                    }
+                });
+            },
+            {
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0.1
+            }
+        );
+
+        // Observe all section elements
+        const sections = document.querySelectorAll('.doc-section');
+        sections.forEach((section) => observer.observe(section));
+
+        return () => {
+            sections.forEach((section) => observer.unobserve(section));
+        };
+    }, []);
+
     const scrollToSection = (id) => {
-        setActiveSection(id);
         const element = document.getElementById(id);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -103,11 +127,25 @@ const Documentation = () => {
                             <li><strong>Gateway:</strong> Internet-connected node that submits transactions to blockchain</li>
                         </ul>
 
-                        <div className="code-block">
-                            <pre>
-                                {`[Device A] --BLE--> [Device B] --BLE--> [Device C] --Internet--> [Blockchain]
-   (Sender)         (Relay)           (Gateway)`}
-                            </pre>
+                        <div className="topology-diagram">
+                            <div className="topology-node">
+                                <div className="node-label">[Device A]</div>
+                                <div className="node-role">(Sender)</div>
+                            </div>
+                            <div className="topology-arrow">--BLE--&gt;</div>
+                            <div className="topology-node">
+                                <div className="node-label">[Device B]</div>
+                                <div className="node-role">(Relay)</div>
+                            </div>
+                            <div className="topology-arrow">--BLE--&gt;</div>
+                            <div className="topology-node">
+                                <div className="node-label">[Device C]</div>
+                                <div className="node-role">(Gateway)</div>
+                            </div>
+                            <div className="topology-arrow">--Internet--&gt;</div>
+                            <div className="topology-node topology-blockchain">
+                                <div className="node-label">[Blockchain]</div>
+                            </div>
                         </div>
 
                         <h3>2.2 Core Components</h3>
@@ -134,14 +172,27 @@ const Documentation = () => {
                         <h3>3.1 Packet Structure</h3>
                         <p>Each BlockOff packet consists of an 11-byte payload transmitted over BLE:</p>
 
-                        <div className="code-block">
-                            <pre>
-                                {`┌─────────────┬─────────────┬─────────────┬─────────────────────┐
-│     ID      │ Total Chunks│ Chunk Index │        Data         │
-│   1 byte    │   1 byte    │   1 byte    │      8 bytes        │
-│  (0-255)    │  (0-255)    │  (0-127)    │    (payload)        │
-└─────────────┴─────────────┴─────────────┴─────────────────────┘`}
-                            </pre>
+                        <div className="packet-diagram">
+                            <div className="packet-field packet-id">
+                                <div className="field-label">ID</div>
+                                <div className="field-size">1 Byte</div>
+                                <div className="field-range">(0-255)</div>
+                            </div>
+                            <div className="packet-field packet-total">
+                                <div className="field-label">Total Chunks</div>
+                                <div className="field-size">1 Byte</div>
+                                <div className="field-range">(0-255)</div>
+                            </div>
+                            <div className="packet-field packet-index">
+                                <div className="field-label">Chunk Index</div>
+                                <div className="field-size">1 Byte</div>
+                                <div className="field-range">(0-127)</div>
+                            </div>
+                            <div className="packet-field packet-data">
+                                <div className="field-label">Data</div>
+                                <div className="field-size">8 Bytes</div>
+                                <div className="field-range">(Payload)</div>
+                            </div>
                         </div>
 
                         <h3>3.2 Message Fragmentation</h3>
