@@ -236,6 +236,27 @@ export const BleProvider: React.FC<BleProviderProps> = ({ children }) => {
     if (!decoded) return;
 
     const { id, totalChunks, chunkNumber, isAck } = decoded;
+    if (totalChunks < 1) {
+      console.warn(
+        "Dropping chunk with invalid totalChunks",
+        totalChunks,
+        "for message",
+        id
+      );
+      return;
+    }
+
+    if (chunkNumber < 1 || chunkNumber > totalChunks) {
+      console.warn(
+        "Dropping chunk with out-of-range index",
+        chunkNumber,
+        "of",
+        totalChunks,
+        "for message",
+        id
+      );
+      return;
+    }
     const masterState = masterStateRef.current;
     let entry = masterState.get(id);
 
@@ -269,6 +290,20 @@ export const BleProvider: React.FC<BleProviderProps> = ({ children }) => {
     forceUpdate();
 
     if (entry.chunks.size === entry.totalChunks) {
+      // Ensure every expected chunk index is present before attempting reassembly
+      const orderedChunks: Uint8Array[] = [];
+      for (let i = 1; i <= entry.totalChunks; i++) {
+        const part = entry.chunks.get(i);
+        if (!part) {
+          console.warn(
+            `Missing chunk ${i}/${entry.totalChunks} for message ${id}, skipping reassembly`
+          );
+          entry.isComplete = false;
+          return;
+        }
+        orderedChunks.push(part);
+      }
+
       entry.isComplete = true;
 
       // --- CORRECTED REASSEMBLY LOGIC ---
@@ -278,10 +313,10 @@ export const BleProvider: React.FC<BleProviderProps> = ({ children }) => {
 
       // This loop ensures chunks are placed in the correct order (1, 2, 3, ...),
       // regardless of the order they were received in.
-      for (let i = 1; i <= entry.totalChunks; i++) {
-        const part = entry.chunks.get(i)!.slice(3); // Get chunk by its number and slice header
-        fullBinary.set(part, offset);
-        offset += part.length;
+      for (const part of orderedChunks) {
+        const body = part.slice(3); // Remove header
+        fullBinary.set(body, offset);
+        offset += body.length;
       }
 
       const decoder = new TextDecoder();
@@ -294,11 +329,6 @@ export const BleProvider: React.FC<BleProviderProps> = ({ children }) => {
       if (hasInternet && !entry.isAck) {
         handleApiResponse(id, fullMessage);
       } else if (!hasInternet) {
-        // Also ensure re-broadcasted chunks are in order
-        const orderedChunks = [];
-        for (let i = 1; i <= entry.totalChunks; i++) {
-          orderedChunks.push(entry.chunks.get(i)!);
-        }
         // Mark as outgoing and initialize broadcast progress for rebroadcasted messages
         entry.isOutgoing = true;
         entry.broadcastProgress = 0;

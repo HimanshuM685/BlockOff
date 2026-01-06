@@ -118,27 +118,40 @@ const MeshScreen = () => {
               style={{ height: 12, borderRadius: 0 }}
               color="#0000FF"
             />
-            <View
-              style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 8 }}
-            >
-              {Array.from({ length: state.totalChunks }, (_, i) => {
-                const idx = i + 1;
-                // For outgoing messages, check broadcast progress; for incoming, check received chunks
-                const have = state.isOutgoing
-                  ? (state.broadcastProgress || 0) >= idx
-                  : state.chunks.has(idx);
-                return (
-                  <Badge
-                    key={idx}
-                    style={[
-                      styles.chunkBadge,
-                      have ? styles.chunkHave : styles.chunkMissing,
-                    ]}
-                  >
-                    {idx}
-                  </Badge>
-                );
-              })}
+            <View style={styles.chunkRow}>
+              {(() => {
+                const MAX_BADGES = 48; // cap to avoid UI overflow on large messages
+                const total = state.totalChunks;
+                const badgesToShow = Math.min(total, MAX_BADGES);
+
+                const badgeElements = Array.from({ length: badgesToShow }, (_, i) => {
+                  const idx = i + 1;
+                  const have = state.isOutgoing
+                    ? (state.broadcastProgress || 0) >= idx
+                    : state.chunks.has(idx);
+                  return (
+                    <Badge
+                      key={idx}
+                      style={[
+                        styles.chunkBadge,
+                        have ? styles.chunkHave : styles.chunkMissing,
+                      ]}
+                    >
+                      {idx}
+                    </Badge>
+                  );
+                });
+
+                const overflow = total - badgesToShow;
+                if (overflow > 0) {
+                  badgeElements.push(
+                    <Badge key="more" style={[styles.chunkBadge, styles.chunkMore]}>
+                      +{overflow}
+                    </Badge>
+                  );
+                }
+                return badgeElements;
+              })()}
             </View>
           </View>
         </Card.Content>
@@ -392,6 +405,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     fontWeight: '700',
   },
+  chunkRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 8,
+    rowGap: 6,
+  },
   chunkHave: {
     backgroundColor: '#34C759',
     borderColor: '#34C759',
@@ -400,6 +419,11 @@ const styles = StyleSheet.create({
   chunkMissing: {
     backgroundColor: '#FF3B30',
     borderColor: '#FF3B30',
+    color: '#FFFFFF',
+  },
+  chunkMore: {
+    backgroundColor: '#8C93A3',
+    borderColor: '#8C93A3',
     color: '#FFFFFF',
   },
 });
