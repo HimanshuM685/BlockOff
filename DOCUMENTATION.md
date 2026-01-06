@@ -80,6 +80,41 @@ BlockOff operates as a decentralized mesh network where each node can function a
 - Handles transaction signing and validation
 - Implements EIP-3009 meta-transactions
 
+### 2.4 End-to-End Transaction Flow
+
+```mermaid
+flowchart TD
+    A["User Opens BlockOff App"] --> B["Wallet Loaded (Keys Stored Locally)"]
+
+    B --> C["User Creates Transaction (Send / Token / Gasless)"]
+    C --> D["Offline Signing (EIP-712 / EIP-3009)"]
+
+    D --> E["Transaction Encoded to Binary"]
+    E --> F["Fragmentation into BLE Chunks (8 bytes each)"]
+
+    F --> G["BLE Advertisement Broadcast"]
+    G --> H["Nearby Devices Receive Packet"]
+
+    H --> I{"Internet Available?"}
+
+    I -- No --> J["Relay Node Stores Packet"]
+    J --> K["Rebroadcasts via BLE Mesh"]
+    K --> H
+
+    I -- Yes --> L["Gateway Node Reassembles Message"]
+    L --> M["Transaction Validated"]
+    M --> N["Transaction Sent to Blockchain RPC"]
+
+    N --> O["Blockchain Accepts Transaction"]
+    O --> P["ACK / Receipt Generated"]
+
+    P --> Q["ACK Fragmented into BLE Chunks"]
+    Q --> R["ACK Broadcast via Mesh"]
+
+    R --> S["Origin Device Receives ACK"]
+    S --> T["User Sees Transaction Status"]
+```
+
 ---
 
 ## 3. Protocol Specification
