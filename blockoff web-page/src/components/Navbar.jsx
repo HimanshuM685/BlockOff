@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
-import apkFile from '../assets/application-f25f37a1-3686-4a30-988d-b40775e60b94.apk';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -23,12 +22,7 @@ const Navbar = () => {
     const isHomePage = location.pathname === '/';
 
     const handleDownload = () => {
-        const link = document.createElement('a');
-        link.href = apkFile;
-        link.download = 'BlockOff.apk';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        window.open('https://github.com/Koushikmondal06/BlockOff/releases/tag/BlockOff-app', '_blank');
     };
 
     return (
