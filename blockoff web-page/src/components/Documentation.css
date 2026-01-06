@@ -1,6 +1,6 @@
 .documentation {
     padding: 100px 20px;
-    background-color: var(--bg-dark);
+    background-color: transparent;
     min-height: 100vh;
 }
 
@@ -185,6 +185,113 @@
     white-space: pre;
 }
 
+/* Packet Diagram */
+.packet-diagram {
+    display: flex;
+    gap: 0;
+    margin: 24px 0;
+    border: 4px solid var(--accent-cyan);
+    padding: 8px;
+    background: #000;
+    box-shadow: 8px 8px 0 0 var(--accent-cyan);
+    overflow-x: auto;
+}
+
+.packet-field {
+    padding: 24px 16px;
+    text-align: center;
+    border: 3px solid #000;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.packet-id {
+    background: #5dade2;
+    flex: 1;
+}
+
+.packet-total {
+    background: #48c9b0;
+    flex: 1;
+}
+
+.packet-index {
+    background: #48c9b0;
+    flex: 1;
+}
+
+.packet-data {
+    background: #ff6b6b;
+    flex: 3;
+}
+
+.field-label {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.field-size {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #000;
+}
+
+.field-range {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #000;
+}
+
+/* Topology Diagram */
+.topology-diagram {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    padding: 24px;
+    background: #000;
+    border: 4px solid var(--accent-cyan);
+    box-shadow: 8px 8px 0 0 var(--accent-cyan);
+    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.topology-node {
+    text-align: center;
+    color: var(--accent-green);
+    font-family: 'Courier New', monospace;
+}
+
+.node-label {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--accent-green);
+}
+
+.node-role {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--accent-green);
+    margin-top: 4px;
+}
+
+.topology-blockchain .node-label {
+    color: var(--accent-cyan);
+}
+
+.topology-arrow {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent-green);
+    font-family: 'Courier New', monospace;
+}
+
 /* Component Grid */
 .component-grid {
     display: grid;
@@ -194,15 +301,22 @@
 }
 
 .component-card {
-    background: var(--bg-dark);
-    border: 3px solid #fff;
+    background: #000;
+    border: 3px solid var(--accent-cyan);
     padding: 20px;
-    box-shadow: 4px 4px 0 0 var(--accent-blue);
+    box-shadow: 4px 4px 0 0 var(--accent-cyan);
 }
 
 .component-card h4 {
-    color: var(--accent-cyan);
+    color: #fff;
     margin: 0 0 12px 0;
+    font-size: 1.2rem;
+}
+
+.component-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
 }
 
 .component-card p {

@@ -88,7 +88,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <section className="hero">
+        <section className="hero" id="home">
             <canvas ref={canvasRef} className="hero-bg" />
 
             <motion.div
@@ -116,6 +116,12 @@ const Hero = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.6 }}
+                        onClick={() => {
+                            const aboutSection = document.getElementById('about');
+                            if (aboutSection) {
+                                aboutSection.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }}
                     >
                         Explore More
                     </motion.button>
@@ -125,6 +131,9 @@ const Hero = () => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.6 }}
+                        onClick={() => {
+                            window.location.href = '/docs';
+                        }}
                     >
                         Documentation
                     </motion.button>
