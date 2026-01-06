@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SectionHeading from './SectionHeading';
-import { WifiOff, Bluetooth, ShieldCheck, Lock, Share2, Smartphone } from 'lucide-react';
+import { WifiOff, Bluetooth, ShieldCheck, Lock, Network, Atom } from 'lucide-react';
 import './Features.css';
 
 const featuresData = [
@@ -26,12 +26,12 @@ const featuresData = [
         description: "Local key storage is protected by industry-standard AES encryption and biometric authentication."
     },
     {
-        icon: <Share2 size={32} />,
+        icon: <Network size={32} />,
         title: "Bluetooth Mesh",
         description: "Uses BLE (Bluetooth Low Energy) to create a resilient, decentralized mesh network."
     },
     {
-        icon: <Smartphone size={32} />,
+        icon: <Atom size={32} />,
         title: "React Native Core",
         description: "Built with React Native for a seamless, high-performance native mobile experience."
     }
