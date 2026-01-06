@@ -52,15 +52,20 @@
 .feature-icon {
     width: 70px;
     height: 70px;
-    background: #000;
-    border: 3px solid var(--accent-cyan);
+    background: #ffffff;
+    /* White box */
+    color: #000000;
+    /* Black icon */
+    border: 3px solid #000000;
+    /* Thick black border */
     border-radius: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 24px;
     font-size: 32px;
-    box-shadow: 4px 4px 0 0 #fff;
+    box-shadow: 4px 4px 0 0 #000000;
+    /* Hard black shadow - Neo Brutalism */
 }
 
 .feature-card h3 {

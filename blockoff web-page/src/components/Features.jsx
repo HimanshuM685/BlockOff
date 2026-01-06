@@ -1,28 +1,39 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SectionHeading from './SectionHeading';
+import { WifiOff, Bluetooth, ShieldCheck, Lock, Share2, Smartphone } from 'lucide-react';
 import './Features.css';
 
 const featuresData = [
     {
-        icon: "📡",
+        icon: <WifiOff size={32} />,
         title: "Offline Signing",
         description: "Your private keys never touch the internet. Transactions are signed in a completely air-gapped environment."
     },
     {
-        icon: "📶",
+        icon: <Bluetooth size={32} />,
         title: "Bluetooth & QR",
         description: "Seamlessly transfer transaction data between your online watcher and offline signer using standard protocols."
     },
     {
-        icon: "🛡️",
+        icon: <ShieldCheck size={32} />,
         title: "Non-Custodial",
         description: "You have complete control. We never store, access, or transmit your private keys or mnemonic phrases."
     },
     {
-        icon: "⚡",
+        icon: <Lock size={32} />,
         title: "Encrypted Storage",
         description: "Local key storage is protected by industry-standard AES encryption and biometric authentication."
+    },
+    {
+        icon: <Share2 size={32} />,
+        title: "Bluetooth Mesh",
+        description: "Uses BLE (Bluetooth Low Energy) to create a resilient, decentralized mesh network."
+    },
+    {
+        icon: <Smartphone size={32} />,
+        title: "React Native Core",
+        description: "Built with React Native for a seamless, high-performance native mobile experience."
     }
 ];
 
