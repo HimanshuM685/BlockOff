@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert, ScrollView, Dimensions } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert, ScrollView, Dimensions, ActivityIndicator } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import QRCode from 'react-native-qrcode-svg';
 import { Colors } from '@/constants/theme';
@@ -8,7 +8,14 @@ import { useWallet } from '@/contexts/walletContext';
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export default function Show(): React.JSX.Element {
-  const { userWalletAddress, isLoggedIn, walletData } = useWallet();
+  const {
+    userWalletAddress,
+    isLoggedIn,
+    walletData,
+    tokenBalance,
+    isLoadingBalance,
+    getTokenBalance,
+  } = useWallet();
   const [customAddress, setCustomAddress] = useState<string>('');
   
   // Use user's wallet address if logged in, otherwise use custom address
@@ -79,6 +86,35 @@ export default function Show(): React.JSX.Element {
             Created: {walletData.createdAt.toLocaleDateString()}
           </Text>
         )}
+      </View>
+
+      {/* Last Known Block Balance */}
+      <View style={styles.balanceCard}>
+        <View style={styles.balanceHeader}>
+          <Text style={styles.balanceLabel}>Last Known Block Balance</Text>
+          <TouchableOpacity
+            onPress={getTokenBalance}
+            disabled={isLoadingBalance || !userWalletAddress}
+            style={[
+              styles.refreshButton,
+              (!userWalletAddress || isLoadingBalance) && styles.refreshButtonDisabled,
+            ]}
+          >
+            {isLoadingBalance ? (
+              <ActivityIndicator size="small" color="#FFFFFF" />
+            ) : (
+              <Text style={styles.refreshText}>Refresh</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+        <View style={styles.balanceRow}>
+          <Text style={styles.balanceValue}>
+            {tokenBalance !== null ? `${tokenBalance} BOFF` : '—'}
+          </Text>
+        </View>
+        <Text style={styles.balanceSubtext}>
+          Cached from last successful on-chain fetch
+        </Text>
       </View>
 
       <View style={styles.addressContainer}>
@@ -210,6 +246,66 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#B1B7C3',
     fontWeight: '600',
+  },
+  balanceCard: {
+    width: '100%',
+    maxWidth: 500,
+    padding: 16,
+    marginBottom: 24,
+    backgroundColor: '#32353D',
+    borderRadius: 0,
+    borderWidth: 3,
+    borderColor: '#0000FF',
+    shadowColor: '#0000FF',
+    shadowOffset: { width: 4, height: 4 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
+    elevation: 8,
+  },
+  balanceHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  balanceLabel: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: '#B1B7C3',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+  balanceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  balanceValue: {
+    fontSize: 22,
+    fontWeight: '900',
+    color: '#FFFFFF',
+  },
+  balanceSubtext: {
+    fontSize: 12,
+    color: '#8C93A3',
+  },
+  refreshButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: '#0000FF',
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: '#0000FF',
+  },
+  refreshButtonDisabled: {
+    opacity: 0.5,
+  },
+  refreshText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '800',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   walletAddressText: {
     fontSize: 14,
