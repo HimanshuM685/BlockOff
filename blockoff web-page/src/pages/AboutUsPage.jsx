@@ -17,6 +17,18 @@ function AboutUsPage() {
             github: 'https://github.com/HimanshuM685',
             twitter: 'https://x.com/HimanshuM685',
             role: 'Developer'
+        },
+        {
+            name: 'Ratnadwip Sarkar',
+            github: 'https://github.com/RealRatnadwip',
+            twitter: 'https://x.com/useridwas_taken',
+            role: 'Developer'
+        },
+        {
+            name: 'Ranit Pal',
+            github: 'https://github.com/ranitpal77',
+            twitter: 'https://x.com/ranitpal77',
+            role: 'Developer'
         }
     ];
 
