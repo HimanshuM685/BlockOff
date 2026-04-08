@@ -59,3 +59,4 @@ eas build -p android --profile production
 ### Troubleshooting
 - **BLE Errors**: If you encounter BLE errors on Web or Expo Go, don't worry. The app gracefully handles missing native modules. Full BLE functionality requires a native build (`npm run android` / `npm run ios`).
 - **Build Failures**: Ensure you have clean Gradle caches. You can run `cd android && ./gradlew clean` to reset.
+
