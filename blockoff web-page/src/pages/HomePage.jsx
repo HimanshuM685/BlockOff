@@ -17,7 +17,7 @@ function HomePage() {
                 <Features />
                 <HowItWorks />
 
-                <footer style={{ textAlign: 'center', padding: '40px', color: '#666', fontSize: '0.9rem' }}>
+                <footer style={{ textAlign: 'center', padding: '40px', color: '#fff', fontSize: '0.9rem' }}>
                     &copy; {new Date().getFullYear()} BlockOff. All rights reserved.
                 </footer>
             </div>
