@@ -82,3 +82,35 @@
     line-height: 1.6;
     font-weight: 600;
 }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .features {
+        padding: 80px 20px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .feature-card {
+        padding: 30px 24px;
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+
+    .feature-card h3 {
+        font-size: 1.3rem;
+    }
+}

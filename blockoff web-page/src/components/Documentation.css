@@ -384,53 +384,192 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
     .doc-layout {
         grid-template-columns: 1fr;
+        gap: 30px;
     }
 
     .doc-toc {
         position: relative;
         top: 0;
+        max-width: 100%;
     }
 
     .doc-toc nav {
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px;
     }
 
-    .toc-item span {
-        display: none;
+    .toc-item {
+        flex: 0 0 auto;
+        padding: 10px 16px;
     }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .documentation {
         padding: 80px 16px;
     }
 
+    .doc-header {
+        margin-bottom: 40px;
+    }
+
+    .about-us-title {
+        font-size: 2rem;
+    }
+
+    .doc-subtitle {
+        font-size: 1rem;
+        padding: 6px 12px;
+    }
+
+    .doc-layout {
+        gap: 20px;
+    }
+
+    .doc-toc {
+        padding: 16px;
+    }
+
+    .doc-toc h3 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+
+    .toc-item {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+
     .doc-content {
-        padding: 24px;
+        padding: 24px 20px;
+        box-shadow: 6px 6px 0 0 var(--accent-cyan);
+    }
+
+    .doc-section {
+        margin-bottom: 40px;
+        padding-bottom: 30px;
     }
 
     .doc-section h2 {
         font-size: 1.5rem;
+        margin-bottom: 20px;
     }
 
     .doc-section h3 {
         font-size: 1.2rem;
+        margin: 24px 0 12px 0;
+    }
+
+    .doc-section h4 {
+        font-size: 1.1rem;
+    }
+
+    .doc-section p,
+    .doc-section li {
+        font-size: 0.95rem;
     }
 
     .component-grid,
     .use-case-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .use-case-card,
+    .component-card {
+        max-width: 100%;
     }
 
     .code-block {
-        padding: 16px;
+        padding: 16px 12px;
+        margin: 20px 0;
     }
 
     .code-block pre {
+        font-size: 0.75rem;
+        overflow-x: auto;
+    }
+
+    .highlight-box {
+        padding: 16px;
+        margin: 20px 0;
+    }
+
+    .packet-diagram {
+        flex-wrap: wrap;
+        padding: 12px;
+        overflow-x: auto;
+    }
+
+    .packet-field {
+        min-width: 90px;
+        padding: 16px 12px;
+        flex: 1 1 auto;
+    }
+
+    .field-label {
+        font-size: 0.9rem;
+    }
+
+    .field-size {
+        font-size: 0.8rem;
+    }
+
+    .topology-diagram {
+        padding: 16px;
+        gap: 6px;
         font-size: 0.85rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .documentation {
+        padding: 70px 12px;
+    }
+
+    .doc-toc h3 {
+        font-size: 0.95rem;
+    }
+
+    .toc-item span {
+        display: none;
+    }
+
+    .toc-item {
+        padding: 10px;
+        min-width: 44px;
+    }
+
+    .doc-content {
+        padding: 20px 16px;
+        border: 3px solid #fff;
+        box-shadow: 4px 4px 0 0 var(--accent-cyan);
+    }
+
+    .doc-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .doc-section h3 {
+        font-size: 1.1rem;
+    }
+
+    .packet-diagram {
+        flex-direction: column;
+        padding: 8px;
+    }
+
+    .packet-field {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .use-case-card {
+        padding: 20px 16px;
     }
 }
