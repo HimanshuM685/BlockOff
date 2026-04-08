@@ -1,7 +1,7 @@
 # BlockOff: Decentralized Mesh Network Protocol for Offline Blockchain Transactions
 
 **Version 1.0**  
-**Date: January 2026**
+**Date: April 2026**
 
 ---
 

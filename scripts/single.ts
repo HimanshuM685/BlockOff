@@ -1,3 +1,4 @@
+//single.ts
 // @ts-nocheck
 
 import { ethers } from "ethers";

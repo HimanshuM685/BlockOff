@@ -1,6 +1,7 @@
 /**
  * Learn more about light and dark modes:
  * https://docs.expo.dev/guides/color-schemes/
+ * https://docs.expo.dev/guides/
  */
 
 import { Colors } from '@/constants/theme';
